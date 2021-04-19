@@ -1,0 +1,42 @@
+{
+  "name": "3proj-server",
+  "version": "2.1.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "node ./out/server.js",
+    "build": "tsc -p tsconfig.json",
+    "prettier": "npx prettier --write ./src/**/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QuentinGruber/3PROJ-Server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/QuentinGruber/3PROJ-Server/issues"
+  },
+  "homepage": "https://github.com/QuentinGruber/3PROJ-Server#readme",
+  "dependencies": {
+    "aes256": "^1.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "lodash": "^4.17.20",
+    "log-to-file": "^2.0.2",
+    "mongodb": "3.6.6",
+    "sha1": "^1.1.1",
+    "typescript": "^4.1.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.9",
+    "@types/express": "^4.17.11",
+    "@types/express-session": "^1.17.3",
+    "@types/lodash": "^4.14.168",
+    "@types/mongodb": "^3.6.12",
+    "@types/sha1": "^1.1.2"
+  }
+}
