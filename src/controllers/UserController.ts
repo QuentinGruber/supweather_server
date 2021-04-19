@@ -53,8 +53,9 @@ const register = async function (req: any): Promise<ApiResponse> {
     return { code: 406, error: "Le mot de passe n'est pas défini" };
   }
   const { password, email, username } = userData;
+  userData.cities = []
+  userData.isInLightMode = true;
   const result = await collection.insertOne(userData) 
-  console.log(result)
   const user = {
     username: username,
     password: password,
