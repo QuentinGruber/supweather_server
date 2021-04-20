@@ -6,6 +6,7 @@ import { isAuthenticated } from "../utils";
 import {
   register,
   login,
+  toggleTheme,
 } from "../controllers/UserController";
 
 router.post("/sign_up", async function (req, res) {
@@ -17,6 +18,11 @@ router.post("/sign_up", async function (req, res) {
 router.post("/sign_in", async function (req, res) {
   const result: ApiResponse = await login(req);
   result.data ? saveUserSession(req, result.data) : null;
+  res.status(result.code).send({ error: result.error });
+});
+
+router.put("/toggle_theme", async function (req, res) {
+  const result: ApiResponse = await toggleTheme(req);
   res.status(result.code).send({ error: result.error });
 });
 

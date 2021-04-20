@@ -86,4 +86,33 @@ const login = async function (req: any): Promise<ApiResponse> {
     };
   }
 };
-export { register, login };
+
+const toggleTheme = async function (req: any): Promise<ApiResponse> {
+  const { email } = req.body;
+  const user: UserData = await collection.findOne({
+     email: String(email) 
+  });
+  if (user) {
+    user.isInLightMode = !user.isInLightMode;
+    try {
+      await collection.updateOne(  { email:user.email} , { $set: user } );
+      return {
+        code: 200
+      };
+    } catch (error) {
+      const { cod , message } = error.response.data
+    return {
+      code: cod,
+      data: message,
+    };
+    }
+   
+  } else {
+    return {
+      code: 404,
+      data: null,
+      error: "Aucun compte n'est associé à cet email",
+    };
+  }
+};
+export { register, login, toggleTheme };
