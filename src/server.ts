@@ -4,12 +4,15 @@ import session from "express-session";
 import https from "https";
 import fs from "fs";
 import cluster from "cluster";
+import csurf from 'csurf';
+import cookieParser from 'cookie-parser';
 
 require('dotenv').config();
 const app = express();
 
 app.use(
   express.json(),
+ cookieParser(),
   express.urlencoded({
     extended: true,
   }),
@@ -24,7 +27,8 @@ app.use(
   cors({
     credentials: true,
     origin: ["http://localhost:3000"], // only our webapp has access to the database
-  })
+  }),
+  csurf({ cookie: true }),
 );
 
 if(cluster.isMaster){
