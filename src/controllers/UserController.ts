@@ -13,8 +13,14 @@ const mongoClient = new MongoClient(
 );
 let collection:Collection<any> ;
 async function setupMongo(){
+  try{
   await mongoClient.connect()
+  }
+  catch(e){
+    return e
+  }
   collection = mongoClient.db("testmern").collection("users");
+  return true
 }
 setupMongo();
 function encrypt_password(password: string): string {
@@ -183,4 +189,33 @@ const removeCity = async function (req: any): Promise<ApiResponse> {
   }
 };
 
-export { register, login, toggleTheme, addCity, removeCity };
+// only used in tests
+const removeUser = async function (req: any): Promise<ApiResponse> {
+  const { email } = req.session.user;
+  const user: UserData = await collection.findOne({
+     email: String(email) 
+  });
+  if (user) {
+    try {
+      await collection.deleteOne(  { email:user.email} );
+      return {
+        code: 200
+      };
+    } catch (error) {
+      const { cod , message } = error.response.data
+    return {
+      code: cod,
+      data: message,
+    };
+    }
+   
+  } else {
+    return {
+      code: 404,
+      data: null,
+      error: "Aucun compte n'est associé à cet email",
+    };
+  }
+};
+
+export { encrypt_password, decrypt_password, setupMongo, removeUser, register, login, toggleTheme, addCity, removeCity };
