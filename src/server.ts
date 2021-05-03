@@ -1,6 +1,9 @@
 import express from "express";
 import cors from "cors"; // For security issue
 import session from "express-session";
+import https from "https";
+import fs from "fs";
+
 require('dotenv').config();
 const app = express();
 
@@ -22,10 +25,14 @@ app.use(
     origin: ["http://localhost:3000"], // only our webapp has access to the database
   })
 );
+const credentials = {key: fs.readFileSync(`${__dirname}/../sslcert/server.key`, 'utf8'), cert: fs.readFileSync(`${__dirname}/../sslcert/server.crt`, 'utf8')};
 
-app.listen(3001, () => {
+var httpsServer = https.createServer(credentials, app);
+httpsServer.listen(3001);
+
+/*app.listen(3001, () => {
   console.log("Server running !");
-});
+});*/
 
 
 // routes
