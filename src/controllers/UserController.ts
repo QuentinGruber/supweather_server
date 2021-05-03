@@ -88,7 +88,7 @@ const login = async function (req: any): Promise<ApiResponse> {
 };
 
 const toggleTheme = async function (req: any): Promise<ApiResponse> {
-  const { email } = req.body;
+  const { email } = req.session.user;
   const user: UserData = await collection.findOne({
      email: String(email) 
   });
@@ -115,4 +115,72 @@ const toggleTheme = async function (req: any): Promise<ApiResponse> {
     };
   }
 };
-export { register, login, toggleTheme };
+
+const addCity = async function (req: any): Promise<ApiResponse> {
+  const { email } = req.session.user;
+  const user: UserData = await collection.findOne({
+     email: String(email) 
+  });
+  if (user) {
+    user.cities.push(Number(req.body.city))
+    req.session.user.cities = user.cities
+    try {
+      await collection.updateOne(  { email:user.email} , { $set: {cities:user.cities} } );
+      return {
+        code: 200
+      };
+    } catch (error) {
+      const { cod , message } = error.response.data
+    return {
+      code: cod,
+      data: message,
+    };
+    }
+   
+  } else {
+    return {
+      code: 404,
+      data: null,
+      error: "Aucun compte n'est associé à cet email",
+    };
+  }
+};
+
+const removeCity = async function (req: any): Promise<ApiResponse> {
+  const { email } = req.session.user;
+  const user: UserData = await collection.findOne({
+     email: String(email) 
+  });
+  if (user) {
+    const cityIndex = user.cities.indexOf(Number(req.body.city))
+    if(cityIndex === -1){
+      return {
+        code: 404,
+        error: "City isn't in user list",
+      };
+    }
+    user.cities.splice(cityIndex,1)
+    req.session.user.cities = user.cities
+    try {
+      await collection.updateOne(  { email:user.email} , { $set: {cities:user.cities} } );
+      return {
+        code: 200
+      };
+    } catch (error) {
+      const { cod , message } = error.response.data
+    return {
+      code: cod,
+      data: message,
+    };
+    }
+   
+  } else {
+    return {
+      code: 404,
+      data: null,
+      error: "Aucun compte n'est associé à cet email",
+    };
+  }
+};
+
+export { register, login, toggleTheme, addCity, removeCity };
