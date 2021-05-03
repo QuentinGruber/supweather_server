@@ -2,7 +2,6 @@ import { ApiResponse } from "../types/shared";
 import axios from "axios";
 
 const GetCityWeather = async function (req: any): Promise<ApiResponse> {
-  console.log(req.query)
   const {cityId} = req.query
   try {
     const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${process.env.OPENWEATHER_APIKEY}`)

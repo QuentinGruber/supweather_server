@@ -3,11 +3,17 @@
   "version": "2.1.0",
   "description": "",
   "main": "index.js",
+  "jest": {
+    "setupFiles": [
+      "dotenv/config"
+    ]
+  },
   "private": true,
   "scripts": {
     "start": "node ./out/server.js",
     "build": "tsc -p tsconfig.json",
-    "prettier": "npx prettier --write ./src/**/*"
+    "prettier": "npx prettier --write ./src/**/*",
+    "test": "jest out"
   },
   "repository": {
     "type": "git",
@@ -36,8 +42,10 @@
     "@types/cors": "^2.8.9",
     "@types/express": "^4.17.11",
     "@types/express-session": "^1.17.3",
+    "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.168",
     "@types/mongodb": "^3.6.12",
-    "@types/sha1": "^1.1.2"
+    "@types/sha1": "^1.1.2",
+    "jest": "^26.6.3"
   }
 }
