@@ -7,12 +7,9 @@ export function saveUserSession(req: any, User: UserData) {
 
 export function isAuthenticated(
   req: any,
-  res: any,
-  allowRoles: Array<number> = []
-) {
+  res: any) {
   if (
-    req.session.user &&
-    (!allowRoles.length || allowRoles.includes(req.session.user.role))
+    req.session.user
   ) {
     return true;
   } else {

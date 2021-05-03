@@ -1,7 +1,7 @@
 import { UserData } from "../types/auth";
 import { ApiResponse } from "../types/shared";
 import {Collection, MongoClient} from "mongodb";
-
+const aes256 = require("aes256");
 
 // MongoDB
 const mongoClient = new MongoClient(
@@ -19,7 +19,7 @@ async function setupMongo(){
 setupMongo();
 function encrypt_password(password: string): string {
   try {
-    const newPassword = password;
+    const newPassword = aes256.encrypt(process.env.ENCRYPTION_KEY, password);
     return newPassword;
   } catch (e) {
     return "";
@@ -28,7 +28,7 @@ function encrypt_password(password: string): string {
 
 function decrypt_password(password: string): string {
   try {
-    return password;
+    return aes256.decrypt(process.env.ENCRYPTION_KEY, password);
   } catch (e) {
     return "";
   }
@@ -55,7 +55,7 @@ const register = async function (req: any): Promise<ApiResponse> {
   const { password, email, username } = userData;
   userData.cities = []
   userData.isInLightMode = true;
-  const result = await collection.insertOne(userData) 
+  await collection.insertOne(userData) 
   const user = {
     username: username,
     password: password,

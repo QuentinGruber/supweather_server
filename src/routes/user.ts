@@ -1,8 +1,7 @@
 import express from "express";
 const router = express.Router();
-import { saveUserSession } from "../utils";
+import { saveUserSession,isAuthenticated } from "../utils";
 import { ApiResponse } from "types/shared";
-import { isAuthenticated } from "../utils";
 import {
   register,
   login,
@@ -22,8 +21,10 @@ router.post("/sign_in", async function (req, res) {
 });
 
 router.put("/toggle_theme", async function (req, res) {
-  const result: ApiResponse = await toggleTheme(req);
-  res.status(result.code).send({ error: result.error });
+  if(isAuthenticated(req, res)){
+    const result: ApiResponse = await toggleTheme(req);
+    res.status(result.code).send({ error: result.error });
+  }
 });
 
 router.delete("/disconnect", function (req, res) {
