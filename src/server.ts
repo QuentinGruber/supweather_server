@@ -12,7 +12,7 @@ const app = express();
 
 app.use(
   express.json(),
- cookieParser(),
+ //cookieParser(),
   express.urlencoded({
     extended: true,
   }),
@@ -28,7 +28,7 @@ app.use(
     credentials: true,
     origin: ["http://localhost:3000"], // only our webapp has access to the database
   }),
-  csurf({ cookie: true }),
+  //csurf({ cookie: true }),
 );
 
 if(cluster.isMaster){
@@ -51,8 +51,9 @@ else{
 import { router as indexRouter } from "./routes/index";
 import { router as userRouter } from "./routes/user";
 import { router as weatherRouter } from "./routes/weather";
+import { router as citiesRouter } from "./routes/cities";
 
 app.use("/", indexRouter);
 app.use("/user", userRouter);
 app.use("/weather", weatherRouter);
-
+app.use("/cities", citiesRouter);
