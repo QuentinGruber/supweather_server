@@ -8,6 +8,7 @@ import {
   toggleTheme,
   addCity,
   removeCity,
+  getCities,
 } from "../controllers/UserController";
 
 router.post("/sign_up", async function (req, res) {
@@ -40,6 +41,13 @@ router.delete("/remove_city", async function (req, res) {
   if(isAuthenticated(req, res)){
     const result: ApiResponse = await removeCity(req);
     res.status(result.code).send({ error: result.error });
+  }
+});
+
+router.get("/cities", async function (req, res) {
+  if(isAuthenticated(req, res)){
+    const result: ApiResponse = await getCities(req);
+    res.status(result.code).send( result.data );
   }
 });
 

@@ -218,4 +218,33 @@ const removeUser = async function (req: any): Promise<ApiResponse> {
   }
 };
 
-export { encrypt_password, decrypt_password, setupMongo, removeUser, register, login, toggleTheme, addCity, removeCity };
+
+const getCities = async function (req: any): Promise<ApiResponse> {
+  const { email } = req.session.user;
+  const user: UserData = await collection.findOne({
+     email: String(email) 
+  });
+  if (user) {
+    try {
+      return {
+        code: 200,
+        data:user.cities
+      };
+    } catch (error) {
+      const { cod , message } = error.response.data
+    return {
+      code: cod,
+      data: message,
+    };
+    }
+   
+  } else {
+    return {
+      code: 404,
+      data: null,
+      error: "Aucun compte n'est associé à cet email",
+    };
+  }
+};
+
+export { encrypt_password, decrypt_password, setupMongo, getCities, removeUser, register, login, toggleTheme, addCity, removeCity };
