@@ -12,7 +12,7 @@ const app = express();
 
 app.use(
   express.json(),
- //cookieParser(),
+ cookieParser(),
   express.urlencoded({
     extended: true,
   }),
@@ -28,7 +28,7 @@ app.use(
     credentials: true,
     origin: ["http://localhost:3000"], // only our webapp has access to the database
   }),
-  //csurf({ cookie: true }),
+  csurf({ cookie: true }),
 );
 
 if(cluster.isMaster){
