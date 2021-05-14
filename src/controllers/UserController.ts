@@ -2,6 +2,7 @@ import { UserData } from "../types/auth";
 import { ApiResponse } from "../types/shared";
 import {Collection, MongoClient} from "mongodb";
 const aes256 = require("aes256");
+import sanitizeHtml from 'sanitize-html';
 
 // MongoDB
 const mongoClient = new MongoClient(
@@ -58,12 +59,15 @@ const register = async function (req: any): Promise<ApiResponse> {
   } else if (!userData.password) {
     return { code: 406, error: "Le mot de passe n'est pas défini" };
   }
+  userData.username = sanitizeHtml(userData.username, {
+    allowedTags: []})// to avoid JS server code injection
+  console.log(userData.username)
   const { password, email, username } = userData;
   userData.cities = []
   userData.isInLightMode = true;
   await collection.insertOne(userData) 
   const user = {
-    username: username,
+    username: username, 
     password: password,
     email: email
   };
