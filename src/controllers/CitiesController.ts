@@ -25,12 +25,13 @@ const GetCitieslist = async function (req: any): Promise<ApiResponse> {
   const {countryCode} = req.query
   if(countryCode){
   try {
-    const result = await collection.find({
-      'country': 'FR'
-    }).toArray();
+    const result:any[] = await collection.find({name : /.*heim.*/,country:"FR"}).toArray();
+    const result_filtered = result.filter((element)=>{
+      return !req.session.user.cities.includes(element.id)
+    }).sort((a:any, b:any) => a.name.localeCompare(b.name))
     return {
       code: 200,
-      data: result,
+      data: result_filtered,
     };
   } catch (error) {
     console.log(error.response)

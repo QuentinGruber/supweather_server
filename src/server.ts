@@ -32,7 +32,7 @@ app.use(
 );
 
 if(cluster.isMaster){
-  for (let i = 0; i< require("os").cpus().length; i++)
+  for (let i = 0; i< 1; i++)
   {
     cluster.fork()
   }

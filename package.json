@@ -1,5 +1,5 @@
 {
-  "name": "3proj-server",
+  "name": "supweather",
   "version": "2.1.0",
   "description": "",
   "main": "index.js",
@@ -16,16 +16,8 @@
     "prettier": "npx prettier --write ./src/**/*",
     "test": "jest out"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/QuentinGruber/3PROJ-Server.git"
-  },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/QuentinGruber/3PROJ-Server/issues"
-  },
-  "homepage": "https://github.com/QuentinGruber/3PROJ-Server#readme",
   "dependencies": {
     "aes256": "^1.1.0",
     "axios": "^0.21.1",

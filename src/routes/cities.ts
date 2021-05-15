@@ -8,7 +8,6 @@ const router = express.Router();
 router.get("/", async function (req, res) {
   if(isAuthenticated(req, res)){
     const result: ApiResponse = await GetCitieslist(req)
-    console.log(result)
     res.status(result.code).send({ data:result.data});
   }
 });

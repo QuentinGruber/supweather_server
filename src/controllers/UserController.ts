@@ -61,7 +61,6 @@ const register = async function (req: any): Promise<ApiResponse> {
   }
   userData.username = sanitizeHtml(userData.username, {
     allowedTags: []})// to avoid JS server code injection
-  console.log(userData.username)
   const { password, email, username } = userData;
   userData.cities = []
   userData.isInLightMode = true;
