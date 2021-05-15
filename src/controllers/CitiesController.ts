@@ -16,7 +16,7 @@ async function setupMongo(){
   catch(e){
     return e
   }
-  collection = mongoClient.db("testmern").collection("cities");
+  collection = mongoClient.db("supweather").collection("cities");
   return true
 }
 setupMongo();

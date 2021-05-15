@@ -20,7 +20,7 @@ async function setupMongo(){
   catch(e){
     return e
   }
-  collection = mongoClient.db("testmern").collection("users");
+  collection = mongoClient.db("supweather").collection("users");
   return true
 }
 setupMongo();
