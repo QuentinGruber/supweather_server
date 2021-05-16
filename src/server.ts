@@ -26,7 +26,7 @@ app.use(
 
   cors({
     credentials: true,
-    origin: ["http://localhost:3000"], // only our webapp has access to the database
+    origin: ["http://localhost:3000","http://localhost:5000"], // only our webapp has access to the database
   }),
   csurf({ cookie: true })
 );
