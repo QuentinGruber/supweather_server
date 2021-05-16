@@ -5,12 +5,8 @@ export function saveUserSession(req: any, User: UserData) {
   req.session.user = User;
 }
 
-export function isAuthenticated(
-  req: any,
-  res: any) {
-  if (
-    req.session.user
-  ) {
+export function isAuthenticated(req: any, res: any) {
+  if (req.session.user) {
     return true;
   } else {
     res.status(401).send({ error: `User isn't connected` });

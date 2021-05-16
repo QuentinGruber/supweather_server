@@ -4,15 +4,15 @@ import session from "express-session";
 import https from "https";
 import fs from "fs";
 import cluster from "cluster";
-import csurf from 'csurf';
-import cookieParser from 'cookie-parser';
+import csurf from "csurf";
+import cookieParser from "cookie-parser";
 
-require('dotenv').config();
+require("dotenv").config();
 const app = express();
 
 app.use(
   express.json(),
- cookieParser(),
+  cookieParser(),
   express.urlencoded({
     extended: true,
   }),
@@ -28,24 +28,23 @@ app.use(
     credentials: true,
     origin: ["http://localhost:3000"], // only our webapp has access to the database
   }),
-  csurf({ cookie: true }),
+  csurf({ cookie: true })
 );
 
-if(cluster.isMaster){
-  for (let i = 0; i< 1; i++)
-  {
-    cluster.fork()
+if (cluster.isMaster) {
+  for (let i = 0; i < 1; i++) {
+    cluster.fork();
   }
-}
-else{
-  const credentials = {key: fs.readFileSync(`${__dirname}/../sslcert/server.key`, 'utf8'), cert: fs.readFileSync(`${__dirname}/../sslcert/server.crt`, 'utf8')};
+} else {
+  const credentials = {
+    key: fs.readFileSync(`${__dirname}/../sslcert/server.key`, "utf8"),
+    cert: fs.readFileSync(`${__dirname}/../sslcert/server.crt`, "utf8"),
+  };
 
   var httpsServer = https.createServer(credentials, app);
-  app.listen(3001,()=>{})
-  httpsServer.listen(3002)
+  app.listen(3001, () => {});
+  httpsServer.listen(3002);
 }
-
-
 
 // routes
 import { router as indexRouter } from "./routes/index";
