@@ -66,6 +66,7 @@ const register = async function (req: any): Promise<ApiResponse> {
     username: username,
     password: password,
     email: email,
+    cities:[]
   };
   return { code: 200, data: user };
 };
