@@ -33,7 +33,7 @@ const GetCitieslist = async function (req: any): Promise<ApiResponse> {
         code: 200,
         data: result_filtered,
       };
-    } catch (error) {
+    } catch (error:any) {
       console.log(error.response);
       const { cod, message } = error.response.data;
       return {

@@ -11,7 +11,7 @@ const GetCityWeather = async function (req: any): Promise<ApiResponse> {
       code: 200,
       data: result.data,
     };
-  } catch (error) {
+  } catch (error:any) {
     console.log(error.response);
     const { cod, message } = error.response.data;
     return {
@@ -31,7 +31,7 @@ const GetCityWeatherDaily = async function (req: any): Promise<ApiResponse> {
       code: 200,
       data: result.data,
     };
-  } catch (error) {
+  } catch (error:any) {
     console.log(error.response);
     const { cod, message } = error.response.data;
     return {

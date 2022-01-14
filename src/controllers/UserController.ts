@@ -106,7 +106,7 @@ const toggleTheme = async function (req: any): Promise<ApiResponse> {
       return {
         code: 200,
       };
-    } catch (error) {
+    } catch (error:any) {
       const { cod, message } = error.response.data;
       return {
         code: cod,
@@ -138,7 +138,7 @@ const addCity = async function (req: any): Promise<ApiResponse> {
       return {
         code: 200,
       };
-    } catch (error) {
+    } catch (error:any) {
       const { cod, message } = error.response.data;
       return {
         code: cod,
@@ -177,7 +177,7 @@ const removeCity = async function (req: any): Promise<ApiResponse> {
       return {
         code: 200,
       };
-    } catch (error) {
+    } catch (error:any) {
       const { cod, message } = error.response.data;
       return {
         code: cod,
@@ -205,7 +205,7 @@ const removeUser = async function (req: any): Promise<ApiResponse> {
       return {
         code: 200,
       };
-    } catch (error) {
+    } catch (error:any) {
       const { cod, message } = error.response.data;
       return {
         code: cod,
@@ -232,7 +232,7 @@ const getCities = async function (req: any): Promise<ApiResponse> {
         code: 200,
         data: user.cities,
       };
-    } catch (error) {
+    } catch (error:any) {
       const { cod, message } = error.response.data;
       return {
         code: cod,
